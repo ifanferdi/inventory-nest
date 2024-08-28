@@ -1,12 +1,37 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ProductsModule } from './products/products.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './application/users/user.module';
+import { User } from './application/users/entities/user.entity';
+import config from './config/config';
+import { Product } from './application/product/entities/product.entity';
+import { Category } from './application/category/entities/category.entity';
+import { ProductModule } from './application/product/product.module';
+import { CategoryModule } from './application/category/category.module';
+import { CategoryController } from './application/category/category.controller';
+import { ProductController } from './application/product/product.controller';
+
+const dbConnection = (config: any) => {
+  return TypeOrmModule.forRoot({
+    type: config.database.type,
+    host: config.database.host,
+    port: config.database.port,
+    username: config.database.username,
+    password: config.database.password,
+    database: config.database.name,
+    entities: [User, Product, Category],
+    // synchronize: true,
+  });
+};
 
 @Module({
-  imports: [UsersModule, ProductsModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    dbConnection(config()),
+    UserModule,
+    ProductModule,
+    CategoryModule,
+  ],
+  controllers: [CategoryController, ProductController],
 })
 export class AppModule {}
