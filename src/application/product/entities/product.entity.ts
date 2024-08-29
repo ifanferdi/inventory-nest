@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 import { Category } from '../../category/entities/category.entity';
 
-@Entity()
+@Entity('products')
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
@@ -41,7 +41,7 @@ export class Product {
 
   @ManyToMany(() => Category, (category) => category.products)
   @JoinTable({
-    name: 'productHasCategories',
+    name: 'product_has_categories',
     joinColumn: { name: 'productId', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'categoryId', referencedColumnName: 'id' },
   })

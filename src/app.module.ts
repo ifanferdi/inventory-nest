@@ -10,24 +10,12 @@ import { ProductModule } from './application/product/product.module';
 import { CategoryModule } from './application/category/category.module';
 import { CategoryController } from './application/category/category.controller';
 import { ProductController } from './application/product/product.controller';
-
-const dbConnection = (config: any) => {
-  return TypeOrmModule.forRoot({
-    type: config.database.type,
-    host: config.database.host,
-    port: config.database.port,
-    username: config.database.username,
-    password: config.database.password,
-    database: config.database.name,
-    entities: [User, Product, Category],
-    // synchronize: true,
-  });
-};
+import { databaseConfig } from './config/database-config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    dbConnection(config()),
+    TypeOrmModule.forRoot({ ...databaseConfig }),
     UserModule,
     ProductModule,
     CategoryModule,
