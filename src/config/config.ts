@@ -1,5 +1,3 @@
-require('dotenv').config({ path: './.env' });
-
 export default () => ({
   app: {
     port: process.env.APP_PORT,

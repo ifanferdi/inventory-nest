@@ -20,18 +20,18 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  async create(@Body() data: CreateProductDto) {
+  async create(@Body() body: CreateProductDto) {
     return {
       message: 'Product created successfully.',
-      data: await this.productService.create(data),
+      data: await this.productService.create(body),
     };
   }
 
   @Get()
-  async findAll(@Query() getProductDto: GetProductDto) {
-    let { limit, page } = getProductDto;
+  async findAll(@Query() query: GetProductDto) {
+    let { limit, page } = query;
 
-    const [products, total] = await this.productService.findAll(getProductDto);
+    const [products, total] = await this.productService.findAll(query);
 
     return pagination(page, limit, total, products);
   }
@@ -45,10 +45,10 @@ export class ProductController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() data: UpdateProductDto) {
+  async update(@Param('id') id: number, @Body() body: UpdateProductDto) {
     await this.findOne(+id);
 
-    await this.productService.update(+id, data);
+    await this.productService.update(+id, body);
 
     return { message: 'Product updated successfully' };
   }
