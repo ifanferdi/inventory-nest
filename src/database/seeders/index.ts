@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { runSeeders, SeederOptions } from 'typeorm-extension';
 import DatabaseSeeder from './database-seeder';
+import UserFactory from '../factories/user.factory';
 import ProductFactory from '../factories/product.factory';
 import CategoryFactory from '../factories/category.factory';
 import * as process from 'node:process';
@@ -21,7 +22,7 @@ import { Category } from '../../application/category/entities/category.entity';
     synchronize: true,
 
     seeds: [DatabaseSeeder],
-    factories: [ProductFactory, CategoryFactory],
+    factories: [ProductFactory, CategoryFactory, UserFactory],
   };
 
   const dataSource = new DataSource(options);

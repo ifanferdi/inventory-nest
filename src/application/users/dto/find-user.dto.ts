@@ -1,6 +1,6 @@
 import { IsIn, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 
-export class GetProductDto {
+export class FindUserDto {
   @IsNumber()
   @IsOptional()
   @IsPositive()
@@ -12,15 +12,11 @@ export class GetProductDto {
 
   @IsString()
   @IsOptional()
-  @IsIn(['id', 'title', 'price', 'stock'])
-  sort: string = 'title';
+  @IsIn(['id', 'fullname', 'username'])
+  sort: string = 'fullname';
 
   @IsString()
   @IsOptional()
   @IsIn(['asc', 'desc'])
   sortType: string = 'asc';
-
-  @IsString()
-  @IsOptional()
-  category: string;
 }

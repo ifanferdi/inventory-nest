@@ -17,13 +17,13 @@ export class Category {
   @Column()
   name: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'createdAt' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updatedAt' })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ name: 'deletedAt' })
   deletedAt: Date;
 
   @ManyToMany(() => Product, (product) => product.categories)

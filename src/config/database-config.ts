@@ -1,5 +1,3 @@
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import config from './config';
 import { User } from '../application/users/entities/user.entity';
 import { Product } from '../application/product/entities/product.entity';
 import { Category } from '../application/category/entities/category.entity';
@@ -12,6 +10,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private readonly config: ConfigService) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
+      logging: true,
       type: 'postgres',
       host: this.config.get('database.host'),
       port: +this.config.get('database.port'),
